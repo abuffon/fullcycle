@@ -1,0 +1,10 @@
+docker build -t abuffon/go-graph .
+docker run --rm -it --name go-graph -v $(pwd):/go/graph-aluno -p 8080:8080 abuffon/go-graph bash
+
+go mod init github.com/abuffon/fullcycle/GraphQL
+go get github.com/99designs/gqlgen@v0.13.0
+go run github.com/99designs/gqlgen@ init
+
+go run ./server.go
+
+go run github.com/99designs/gqlgen generate
