@@ -1,0 +1,7 @@
+docker-compose -d up
+docker exec -it consul01 sh
+
+consul agent -dev
+
+apk -U add bind-tools
+dig @localhost -p 8600 consul01.node.consul
