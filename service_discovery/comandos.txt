@@ -5,3 +5,30 @@ consul agent -dev
 
 apk -U add bind-tools
 dig @localhost -p 8600 consul01.node.consul
+
+
+mkdir /etc/consul.d
+mkdir /var/lib/consul
+
+#ip pode mudar
+#no consulserver01
+consul agent -server -bootstrap-expect=3 -node=consulserver01 -bind=172.18.0.3 -data-dir=/var/lib/consul -config-dir=/etc/consul.d
+#no consulserver02
+consul agent -server -bootstrap-expect=3 -node=consulserver02 -bind=172.18.0.2 -data-dir=/var/lib/consul -config-dir=/etc/consul.d
+#no consulserver01
+consul join 172.18.0.2
+#no consulserver03
+consul agent -server -bootstrap-expect=3 -node=consulserver03 -bind=172.18.0.4 -data-dir=/var/lib/consul -config-dir=/etc/consul.d
+#no consulserver01
+consul join 172.18.0.4
+
+#no consulclient01
+consul agent -bind=172.18.0.5 -data-dir=/var/lib/consul -config-dir=/etc/consul.d
+consul join 172.18.0.4
+
+consul reload
+apk -U add bind-tools
+dig @localhost -p 8600 nginx.service.consul
+curl localhost:8500/v1/catalog/services
+consul catalog nodes -service nginx
+consul catalog nodes -detailed
