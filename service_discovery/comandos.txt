@@ -32,3 +32,18 @@ dig @localhost -p 8600 nginx.service.consul
 curl localhost:8500/v1/catalog/services
 consul catalog nodes -service nginx
 consul catalog nodes -detailed
+
+#no consulclient02
+consul agent -bind=172.18.0.6 -data-dir=/var/lib/consul -config-dir=/etc/consul.d -retry-join=172.18.0.3 -retry-join=172.18.0.4
+
+#no consulclient01
+consul reload
+apk add nginx
+nginx
+alterar default.conf
+reiniciar nginx
+
+#depois das mudanças
+consul agent -config-dir=/etc/consul.d
+
+consul keygen
