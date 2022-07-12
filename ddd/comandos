@@ -1,0 +1,8 @@
+docker rm $(docker ps -a -q) -f
+docker run --rm -it --name node-ddd -v $(pwd):/aluno abuffon/node-ddd bash
+
+npm i typescript --save-dev 
+npx tsc --init
+npx tsc
+npm i tslint --save-dev
+npx tslint --init
