@@ -12,3 +12,5 @@ npm i -D @swc/jest @swc/cli @swc/core
 chmod -R 777 .
 npx jest --init
 | yes node no v8 yes
+
+npm test
