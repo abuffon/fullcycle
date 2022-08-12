@@ -15,3 +15,5 @@ npx jest --init
 
 npm test
 no package.json => "test": "npm run tsc -- --noEmit && jest",
+
+npm i uuid @types/uuid
